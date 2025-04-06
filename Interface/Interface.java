@@ -13,7 +13,7 @@ class Mobil implements Kendaraan{
 
     @Override
     public void berhenti(){
-        System.out.println("Mobil berhenti");
+        System.out.println("Mobil berhenti.");
     }
 }
 
