@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head><title>Form Produk</title></head>
+    <body>
+        <h1 th:text="${product.id == null ? 'Tambah produk' : 'Edit Produk'}"></h1>
+        <form th:action="@{${product.id == null} ? '/products' : '/products/update/' + ${product.id}}" method="post">
+            Nama: <input type="text" name="name" th:value="${product.name}"><br/>
+            Harga: <input type="text" name="price" th:value="${product.price}"><br/>
+            <button type="submit">Submit</button>
+        </form>
+        <a href="/products">Kembali</a>
+    </body>
+</html>

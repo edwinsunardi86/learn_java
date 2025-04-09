@@ -21,7 +21,7 @@ public class ProductViewController {
     public String ListProduct(Model model) {
         // System.out.println("🔥🔥 MASUK KE CONTROLLER /products 🔥🔥");
         model.addAttribute("products", repo.findAll());
-        return "list";
+        return "products";
     }
 
     // Show form to add
@@ -35,7 +35,7 @@ public class ProductViewController {
     @PostMapping
     public String saveProduct(@ModelAttribute Product product){
         repo.save(product);
-        return "redirect:/products";
+        return "redirect:products";
     }
 
     // Show form to edit
