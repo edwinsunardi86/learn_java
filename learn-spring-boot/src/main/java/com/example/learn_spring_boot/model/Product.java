@@ -5,13 +5,19 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+import jakarta.validation.constraints.*;;
+
 @Entity
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    
+    @NotBlank(message = "Nama tidak boleh kosong")
     private String name;
+
+    @NotNull(message = "Harga tidak boleh kosong")
+    @Min(value = 1000, message = "Harga minimal 1000")
     private double price;
 
     // Getters && Setters
