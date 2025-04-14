@@ -1,25 +1,33 @@
 package com.example.learn_spring_boot.security;
 
+import java.util.*;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import com.example.learn_spring_boot.model.User;
 import com.example.learn_spring_boot.repository.UserRepository;
 
-public class CustomUserDetailsService implements UserDetailsService{
-    
-    private final UserRepository userRepository;
-
-    public CustomUserDetailsService(UserRepository userRepository){
-        this.userRepository = userRepository;
-    }
+@Service
+public class CustomUserDetailsService implements UserDetailsService {
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository
         .findByUsername(username)
-        .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-        return new CustomUserDetails(user);
+        .orElseThrow(() -> new UsernameNotFoundException("Username not found"));
+
+        return new org.springframework.security.core.userdetails.User(
+            user.getUsername(),
+            user.getPassword(),
+            List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole()))
+        );
+
     }
 }
