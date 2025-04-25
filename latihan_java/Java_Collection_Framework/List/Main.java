@@ -12,7 +12,16 @@ class ListName {
     }
 
     public void getName(String name){
-        var isExists = arrName.contains(name);
+        // var isExists = arrName.contains(name);
+        var isExists = false;
+
+        for(int i = 0; i < arrName.size(); i++){
+            if(arrName.get(i).equalsIgnoreCase(name)){
+                isExists = true;
+                break;
+            }
+        }
+
         if(isExists){
             System.out.println(name +" ditemukan di dalam daftar");
         }else{
