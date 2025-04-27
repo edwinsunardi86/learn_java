@@ -1,6 +1,7 @@
 package latihan_java.Java_Collection_Framework.List;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -49,11 +50,23 @@ class ListName {
         }
     }
 
+    public void changePositionName(int index1,int index2){
+        if(index1 > 0 && index2 > 0 && index1 <= arrName.size() && index2 <= arrName.size()){
+            Collections.swap(arrName, (index1 -1), (index2 - 1));
+            System.out.println("Daftar nama yang sudah tukar posisi:");
+            for(int i = 0; i < arrName.size(); i++){
+                System.out.println((i+1)+". "+arrName.get(i));
+            }
+        }else{
+            System.out.println("Index tidak valid. Silahkan masukan index antara 1 dan" + arrName.size());
+        }
+    }
+    
     public void showNames(){
         for(int i = 0; i < arrName.size(); i++){
             System.out.println((i+1) + ". " + arrName.get(i));
         }
-    }
+    }   
 }
 
 public class Main{
@@ -94,11 +107,16 @@ public class Main{
             
             System.out.print("Nama yang ingin dihapus: ");
             String removeName = scanner.nextLine();
-
             listName.removeName(removeName);
             listName.showNames();
-
+            System.out.println("---------------------------------");
+            System.out.print("Index 1: ");
+            int index1 = scanner.nextInt();
+            System.out.print("Index 2: ");
+            int index2 = scanner.nextInt();
+            listName.changePositionName(index1,index2);
             scanner.close();
+            
         }
             
     }
