@@ -1,3 +1,4 @@
+package Java_Collections_Framework.Map.LinkedHashMap;
 import java.util.LinkedHashMap;
 
 public class Main{

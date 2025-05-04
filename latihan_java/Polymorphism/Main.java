@@ -2,7 +2,6 @@ package Polymorphism;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Consumer;
 
 class Pegawai {
     protected String nama;
