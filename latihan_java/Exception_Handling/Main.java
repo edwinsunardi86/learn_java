@@ -53,6 +53,8 @@ public class Main {
             System.out.println("Bukan format angka : " + e.getMessage());
         } catch (InvalidAgeException ex) {
             System.out.println(ex.getMessage());
+        } finally {
+            System.out.println("Operasi sudah selesai");
         }
     }
 }
