@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Input</title>
+</head>
+<body>
+    <form action="#" th:action="@{/submit}" th:object="${userForm}" method="post">
+        <label for="">Name : </label>
+        <input type="text" th:field="*{name}"><br><br>
+        <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color:red"></div>
+        <label for="">Email : </label>
+        <input type="text" th:field="*{email}"><br><br>
+        <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color:red"></div>
+        <button type="submit">Send</button>
+    </form>
+</body>
+</html>

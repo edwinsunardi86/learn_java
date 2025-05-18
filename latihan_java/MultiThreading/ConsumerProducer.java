@@ -2,89 +2,81 @@ package latihan_java.MultiThreading;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-class DataNumbers{
-    List<Integer> sourceDataNumber = new ArrayList<>();
-    List<Integer> pickUp = new ArrayList<>();
-    List<Integer> historyConsumptionData = new ArrayList<>();
-    int number;
-    // public DataNumbers(int pickup){
-    //     this.pickup = pickup;
-    // }
-
-    public synchronized void consumption(int number){
-        this.number = number;
-        pickUp.add(number);
-        boolean filterList = sourceDataNumber.stream().filter(n -> n.equals(this.number)).collect(Collectors.toList()).isEmpty();
-        while(!filterList){
-            try {
-                System.out.println("On waiting data: " + number);
-                wait();
-            } catch (InterruptedException e) {
-            }
-        }
-        
-        boolean isExist = false;
-        for(int i = 0; i < sourceDataNumber.size(); i++){
-            if(sourceDataNumber.get(i).equals(number)){
-                isExist = true;
-                sourceDataNumber.remove(i);
-            }
-        }
-        if(isExist){
-            historyConsumptionData.add(number);
-            System.out.println("Data number "+ number +" has been consumption");
-        }
-
-        System.out.println(filterList);
-    }
-
-    public synchronized void producerNumber(int number){
-        sourceDataNumber.add(number);
-        
-        System.out.println("production : " + sourceDataNumber);
-        
-        // if(!filterList){
-            notify();
-        // }
-    }
-}
 public class ConsumerProducer{
+    private static List<Integer> buffer = new ArrayList<>();
+    private static final int MAX_CAPACITY = 5;
+    private static Object lock = new Object();
+
+    static class Producer implements Runnable{
+        private int value = 1;
+        @Override
+        public void run(){
+            while (true) { 
+                synchronized (lock) {
+                    while(buffer.size() == MAX_CAPACITY){
+                        try {
+                            System.out.println("Buffer has full. Producer on waiting");
+                            lock.wait();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    buffer.add(value);
+                    System.out.println("Product generate " + value);
+                    value++;
+
+                    lock.notify(); //beri tahu consumer 
+                    try {
+                        Thread.sleep(2000);  
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+    }
+
+    static class Consumer implements Runnable{
+        @Override
+        public void run(){
+            while (true) { 
+                synchronized (lock) {
+                    while(buffer.isEmpty()){   
+                        try {
+                            System.out.println("Buffer is empty, Consumer on waiting");
+                            lock.wait();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    int data = buffer.remove(0);
+                    System.out.println("Consumer mengambil " + data);
+
+                    lock.notify(); //beri tahu producer
+                }
+
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                }
+            }
+        }
+    }
     public static void main(String[] args){
-        DataNumbers dataNumbers = new DataNumbers();
-        Thread consumption1 = new Thread(new Runnable() {
-            @Override
-            public void run(){
-                dataNumbers.consumption(10);
-            }
-        });
-        Thread producer1 = new Thread(new Runnable() {
-           @Override
-           public void run(){
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-            }
-            dataNumbers.producerNumber(10);
-           } 
-        });
-
-        Thread consumption2 = new Thread(()->{
-            dataNumbers.consumption(35);
-        });
-
-        Thread producer2 = new Thread(() -> {
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-            }
-            dataNumbers.producerNumber(20);
-        });
-        consumption1.start();
-        producer1.start();
-        // producer2.start();
-        // consumption2.start();
-
+        Thread producer = new Thread(new Producer());
+        Thread consumer1 = new Thread(new Consumer());
+        Thread consumer2 = new Thread(new Consumer());
+        Thread consumer3 = new Thread(new Consumer());
+        Thread consumer4 = new Thread(new Consumer());
+        Thread consumer5 = new Thread(new Consumer());
+        consumer1.start();
+        consumer2.start();
+        consumer3.start();
+        consumer4.start();
+        consumer5.start();
+        producer.start();
     }
 }
