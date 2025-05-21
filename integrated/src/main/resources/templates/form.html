@@ -23,6 +23,15 @@
         <input type="password" th:field="*{confirmPassword}">
         <div th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}" style="color:red"></div><br><br>
         
+        <div th:if="${isAdmin}">
+            <label for="">Role : </label>
+            <select th:field="*{role}">
+                <option value="USER">USER</option>
+                <option value="ADMIN">ADMIN</option>
+            </select><br><br>
+        </div>
+
+        <input type="hidden" th:if="${!isAdmin}" name="role" th:value="'USER'"/><br>
         <!-- Error global (class-level)-->
         <div th:if="${#fields.hasGlobalErrors()}" style="color:red">
             <ul>
@@ -30,7 +39,7 @@
             </ul>
         </div>
 
-        <button type="submit">Send</button>
+        <button type="submit">Register</button>
     </form>
 </body>
 </html>

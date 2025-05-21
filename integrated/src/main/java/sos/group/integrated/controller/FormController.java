@@ -1,7 +1,8 @@
 package sos.group.integrated.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,11 +21,16 @@ public class FormController {
     private UserRepository userRepository;
 
     @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping("/form")
-    public String showForm(Model model){
-        model.addAttribute("userForm", new UserForm());
+    public String showForm(Model model, Authentication authentication){
+        UserForm userForm = new UserForm();
+
+        boolean isAdmin = authentication != null && authentication.getAuthorities().stream().anyMatch( auth -> auth.getAuthority().equals("ROLE_ADMIN"));
+
+        model.addAttribute("isAdmin",isAdmin);
+        model.addAttribute("userForm", userForm);
         return "form";
     }
 
@@ -34,6 +40,7 @@ public class FormController {
         model.addAttribute("email", userForm.getEmail());
         model.addAttribute("password", userForm.getPassword());
         model.addAttribute("passwordConfirm", userForm.getConfirmPassword());
+        model.addAttribute("role", userForm.getRole());
 
         // bindingResult.getGlobalErrors().forEach(error -> System.out.println("Global Error: " + error.getDefaultMessage()));
 
@@ -46,6 +53,7 @@ public class FormController {
         user.setName(userForm.getName());
         user.setEmail(userForm.getEmail());
         user.setPassword(passwordEncoder.encode(userForm.getPassword()));
+        user.setRole(userForm.getRole());
         userRepository.save(user);
         return "result";
     }

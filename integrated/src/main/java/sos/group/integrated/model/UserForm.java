@@ -2,6 +2,7 @@ package sos.group.integrated.model;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
 import sos.group.integrated.validation.NoDigits;
 import sos.group.integrated.validation.PasswordMatches;
 import sos.group.integrated.validation.StrongPassword;
@@ -23,6 +24,10 @@ public class UserForm {
 
     @NotEmpty(message="Confirm Password tidak boleh kosong")
     private String confirmPassword;
+
+    @NotEmpty(message="Role harus dipilih")
+    @Pattern(regexp="USER|ADMIN", message="Role tidak valid")
+    private String role;
 
     // getter & setter
     public String getName(){
@@ -55,5 +60,13 @@ public class UserForm {
 
     public void setConfirmPassword(String confirmPassword){
         this.confirmPassword = confirmPassword;
+    }
+
+    public String getRole(){
+        return role;
+    }
+
+    public void setRole(String role){
+        this.role = role;
     }
 }

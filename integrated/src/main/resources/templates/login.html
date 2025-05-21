@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,15 +7,12 @@
 </head>
 <body>
     <h2>Login</h2>
+    <p th:if="${error}" class="alert alert-danger" th:text="${error}"></p>
+    <p th:if="${logout}" class="alert alert-success" th:text="${logout}"></p>
     <form th:action="@{/login}" method="post">
-        <label for="">Email</label>
-        <input type="text" name="username"/><br><br>
-        <label for="">Password</label>
-        <input type="password" name="password"/><br><br>
-        <button type="submit">Submit</button>
+        <div><label for="">Email : <input type="text" name="email"></label></div><br>
+        <div><label for="">Password : <input type="password" name="password"></label></div><br>
+        <div><button type="submit">Login</button></div>
     </form>
-
-    <p th:if="${param.error}">Login gagal</p>
-    <p th:if="${param.logout}">Login sukses</p>
 </body>
 </html>

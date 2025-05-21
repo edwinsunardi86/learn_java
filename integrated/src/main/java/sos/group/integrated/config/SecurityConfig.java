@@ -1,88 +1,88 @@
-package sos.group.integrated.config;
+    package sos.group.integrated.config;
 
-import java.util.Collections;
+    import org.springframework.context.annotation.Bean;
+    import org.springframework.context.annotation.Configuration;
+    import org.springframework.security.authentication.AuthenticationManager;
+    import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+    import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+    import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+    import org.springframework.security.crypto.password.PasswordEncoder;
+    import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.SecurityFilterChain;
+    @Configuration
+    public class SecurityConfig {
+        @Bean
+        public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+            http
+                .authorizeHttpRequests(
+                    auth->auth
+                    .requestMatchers("/form","/submit").permitAll()
+                    // .requestMatchers("/admin/**").hasRole("ADMIN")
+                    .anyRequest()
+                    .authenticated()
+                )
+                .formLogin(form -> form
+                    .loginPage("/login")
+                    .usernameParameter("email")
+                    .successHandler(authDirect())
+                    // .defaultSuccessUrl("/home")
 
-import sos.group.integrated.model.User;
-import sos.group.integrated.repository.UserRepository;
+                    .permitAll()
+                )
+                .logout(logout->logout
+                    .logoutUrl("/logout")
+                    .logoutSuccessUrl("/login?logout")
+                    .permitAll());
+            
+            return http.build();
+        }
 
-@Configuration
-@EnableWebSecurity
-public class SecurityConfig {
-    // @Autowired
-    // private CustomUserDetailsService userDetailsService;
+        @Bean
+        public PasswordEncoder passwordEncoder(){
+            return new BCryptPasswordEncoder();
+        }
 
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder(){
-        System.out.println("BCryptPasswordEncoder bean loaded");
-        return new BCryptPasswordEncoder();
+        @Bean
+        public AuthenticationSuccessHandler authDirect(){
+            return (request, response, authentication) -> {
+                boolean isAdmin = authentication.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("ROLE_ADMIN"));
+                if(isAdmin){
+                    response.sendRedirect("/admin/users");
+                }else{
+                    response.sendRedirect("/");
+                }
+            };
+        }
+
+        @Bean
+        public AuthenticationManager authManager(AuthenticationConfiguration config) throws Exception{
+            return config.getAuthenticationManager();
+        }
     }
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        // http.authorizeHttpRequests(auth -> auth.anyRequest().permitAll()).csrf(csrf -> csrf.disable());
-        // return http.build();
-        http
-            .csrf(csrf -> csrf.disable())
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/register","/submit","/css/**").permitAll()
-                .anyRequest().authenticated()
-                // .anyRequest().permitAll()
-            )
-            .formLogin(form -> form
-                .loginPage("/formLogin")
-                .failureHandler((request, response, exception) -> {
-                    System.out.println("Login failed: " + exception.getMessage());
-                    response.sendRedirect("/login?error");
-                })
-                .defaultSuccessUrl("/home", true)
-                .permitAll()
-            ).logout(logout->logout
-                .logoutSuccessUrl("/login?logout").permitAll());
-        return http.build();
-    }
 
-    @Bean
-    public UserDetailsService userDetailsService(UserRepository userRepository){
-        // return new CustomUserDetailsService(userRepository);
-        System.out.println(">>> Custom UserDetailsService bean created");
-        return email -> {
-        System.out.println("🟡 Login attempt for: " + email);
-        User user = userRepository.findByEmail(email)
-            .orElseThrow(() -> {
-                System.out.println("❌ User not found: " + email);
-                return new UsernameNotFoundException("User not found");
-            });
+// Alurnya:
+// User submit form login (/login)
 
-        System.out.println("✅ User found: " + user.getEmail());
+// Spring Security intercepts → menjalankan filter UsernamePasswordAuthenticationFilter
 
-        return new org.springframework.security.core.userdetails.User(
-            user.getEmail(),
-            user.getPassword(),
-            Collections.singleton(new SimpleGrantedAuthority("ROLE_" + user.getRole()))
-        );
-    };
-    }
+// Filter ini akan:
 
-    @Bean
-    public AuthenticationManager authenticationManager(HttpSecurity http, BCryptPasswordEncoder encoder, UserDetailsService userDetailsService) throws Exception{
-        // return config.getAuthenticationManager();
-        return http.getSharedObject(AuthenticationManagerBuilder.class)
-        .userDetailsService(userDetailsService)
-        .passwordEncoder(encoder)
-        .and()
-        .build();
-    }
-}
+// Ambil email dan password dari request
+
+// Panggil AuthenticationManager
+
+// AuthenticationManager lalu akan:
+
+// Memanggil UserDetailsService.loadUserByUsername(email)
+
+// Di sinilah CustomUserDetailsService kamu akan dijalankan!
+
+// Return UserDetails (isi email, password hash, dan role)
+
+// Spring cocokkan password (pakai PasswordEncoder)
+
+// Jika cocok → login berhasil ✔
+
+// Jika tidak cocok → redirect ke /login?error
