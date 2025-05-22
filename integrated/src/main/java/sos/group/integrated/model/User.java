@@ -20,6 +20,8 @@ public class User {
 
     private String role = "USER"; // default role
 
+    private boolean enabled = false;
+    
     //Getter & Setter
     public Long getId(){
         return id;
@@ -29,7 +31,7 @@ public class User {
         this.id = id;
     }
 
-    public String name(){
+    public String getName(){
         return name;
     }
 
@@ -59,5 +61,13 @@ public class User {
 
     public void setRole(String role){
         this.role = role;
+    }
+
+    public boolean isEnabled(){
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled){
+        this.enabled = enabled;
     }
 }

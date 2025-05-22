@@ -18,7 +18,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
                 .authorizeHttpRequests(
                     auth->auth
                     .requestMatchers("/form","/submit").permitAll()
-                    // .requestMatchers("/admin/**").hasRole("ADMIN")
+                    .requestMatchers("/admin/**").hasRole("ADMIN")
                     .anyRequest()
                     .authenticated()
                 )
@@ -33,7 +33,9 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
                 .logout(logout->logout
                     .logoutUrl("/logout")
                     .logoutSuccessUrl("/login?logout")
-                    .permitAll());
+                    .permitAll()
+                ).exceptionHandling(ex -> ex
+                    .accessDeniedPage("/403"));
             
             return http.build();
         }
