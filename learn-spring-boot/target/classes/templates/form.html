@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Form Produk</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container mt-4">
+            <h1 th:if="${product.id == null}">Tambah Produk</h1>
+            <h1 th:unless="${product.id == null}">Edit Produk</h1>
+            <form th:object="${product}" th:action="${product.id == null} ? @{/products} : @{/products/update/{id}(id=${product.id})}" method="post">
+                <div class="mb-3">
+                    <label for="" class="form-label">Nama</label>
+                    <input type="text" th:field="*{name}" th:classappend="${#fields.hasErrors('name')} ? 'is-invalid'" class="form-control">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Price</label>
+                    <input type="text" th:field="*{price}" th:classappend="${#fields.hasErrors('price')} ? 'is-invalid'" class="form-control">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+            <a href="/products">Kembali</a>
+        </div>
+    </body>
+</html>

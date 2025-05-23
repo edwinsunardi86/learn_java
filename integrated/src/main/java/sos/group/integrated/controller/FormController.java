@@ -21,6 +21,7 @@ import sos.group.integrated.model.UserForm;
 import sos.group.integrated.model.VerificationToken;
 import sos.group.integrated.repository.TokenRepository;
 import sos.group.integrated.repository.UserRepository;
+import sos.group.integrated.service.EmailService;
 
 @Controller
 public class FormController {
@@ -33,6 +34,9 @@ public class FormController {
     @Autowired
     private TokenRepository tokenRepository;
 
+    @Autowired
+    private EmailService emailService;
+    
     @GetMapping("/register")
     public String register(Model model, Authentication authentication){
         UserForm userForm = new UserForm();
@@ -85,11 +89,11 @@ public class FormController {
     
         verificationToken.setToken(token);
         verificationToken.setUser(user);
-        verificationToken.setExpiryDate(LocalDateTime.now());
+        verificationToken.setExpiryDate(LocalDateTime.now().plusHours(24));
 
         tokenRepository.save(verificationToken);
         String link = "http://localhost:8080/verify?token="+token;
-        // emailService.send(user.getEmail(),"Konfirmasi Email", "Klik link untuk verifikasi: " + link);
+        emailService.send(user.getEmail(),"Konfirmasi Email", "Klik link untuk verifikasi: " + link);
         return "redirect:/login";
     }
 
@@ -111,7 +115,41 @@ public class FormController {
         User user = verif.getUser();
         user.setEnabled(true);
         userRepository.save(user);
+        model.addAttribute("message","Email berhasil diverifikasi!");
         
+        return "verify-result";
+    }
+
+    @PostMapping("/resend")
+    public String resendVerification(@RequestParam("email") String email, Model model){
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+
+        if(optionalUser.isEmpty()){
+            model.addAttribute("message","Email tidak ditemukan");
+            return "verify-result";
+        }
+
+        User user = optionalUser.get();
+        if(user.isEnabled()) {
+            model.addAttribute("message","Akun sudah aktif");
+            return "verify-result";
+        }
+
+        // Hapus token lama
+        tokenRepository.deleteByUser(user);
+
+        // Buat token baru
+        String token = UUID.randomUUID().toString();
+        VerificationToken newToken = new VerificationToken();
+        
+        newToken.setToken(token);
+        newToken.setUser(user);
+        newToken.setExpiryDate(LocalDateTime.now().plusHours(24));
+        tokenRepository.save(newToken);
+
+        String link = "http://localhost:8080/verify?token="+token;
+        emailService.send(user.getEmail(), "Verifikasi ulang", "Klik untuk verifikasi" + link);
+        model.addAttribute("message", "Link verifikasi baru telah dikirim ke email");
         return "verify-result";
     }
 }
