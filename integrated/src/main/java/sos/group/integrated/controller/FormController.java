@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import sos.group.integrated.model.User;
 import sos.group.integrated.model.UserForm;
@@ -100,19 +101,22 @@ public class FormController {
     @GetMapping("/verify")
     public String verifyEmail(@RequestParam String token, Model model){
         Optional<VerificationToken> optional = tokenRepository.findByToken(token);
+        VerificationToken verif = optional.get();
+        User user = verif.getUser();
+        model.addAttribute("user", user);
 
         if(optional.isEmpty()){
             model.addAttribute("message","Token tidak valid");
             return "verify-result";
         }
-
-        VerificationToken verif = optional.get();
+        
+        
         if(verif.getExpiryDate().isBefore(LocalDateTime.now())){
             model.addAttribute("message","Token sudah kadaluarsa");
             return "verify-result";
         }
 
-        User user = verif.getUser();
+        
         user.setEnabled(true);
         userRepository.save(user);
         model.addAttribute("message","Email berhasil diverifikasi!");
@@ -120,23 +124,26 @@ public class FormController {
         return "verify-result";
     }
 
+    @Transactional
     @PostMapping("/resend")
     public String resendVerification(@RequestParam("email") String email, Model model){
         Optional<User> optionalUser = userRepository.findByEmail(email);
-
+        
         if(optionalUser.isEmpty()){
             model.addAttribute("message","Email tidak ditemukan");
             return "verify-result";
         }
 
         User user = optionalUser.get();
-        if(user.isEnabled()) {
-            model.addAttribute("message","Akun sudah aktif");
-            return "verify-result";
-        }
+        model.addAttribute("user",user);
+        // if(user.isEnabled()) {
+        //     model.addAttribute("message","Akun sudah aktif");
+        //     return "verify-result";
+        // }
 
         // Hapus token lama
         tokenRepository.deleteByUser(user);
+        tokenRepository.flush();
 
         // Buat token baru
         String token = UUID.randomUUID().toString();
@@ -148,7 +155,7 @@ public class FormController {
         tokenRepository.save(newToken);
 
         String link = "http://localhost:8080/verify?token="+token;
-        emailService.send(user.getEmail(), "Verifikasi ulang", "Klik untuk verifikasi" + link);
+        emailService.send(user.getEmail(), "Verifikasi ulang", "Klik untuk verifikasi " + link);
         model.addAttribute("message", "Link verifikasi baru telah dikirim ke email");
         return "verify-result";
     }

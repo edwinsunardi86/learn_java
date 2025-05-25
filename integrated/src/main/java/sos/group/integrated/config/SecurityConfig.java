@@ -17,7 +17,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
             http
                 .authorizeHttpRequests(
                     auth->auth
-                    .requestMatchers("/register","/submit","/verify","/error").permitAll()
+                    .requestMatchers("/register","/submit","/verify","/error","/resend").permitAll()
                     .requestMatchers("/admin/**").hasRole("ADMIN")
                     .anyRequest()
                     .authenticated()
