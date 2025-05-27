@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Input</title>
+</head>
+<body>
+    <form action="#" th:action="@{/submit}" th:object="${userForm}" method="post">
+        <label for="">Name : </label>
+        <input type="text" th:field="*{name}">
+        <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color:red"></div><br><br>
+
+        <label for="">Email : </label>
+        <input type="text" th:field="*{email}">
+        <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color:red"></div><br><br>
+        
+        <label for="">Password : </label>
+        <input type="password" th:field="*{password}">
+        <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color:red"></div><br><br>
+        
+        <label for="">Confirm Password : </label>
+        <input type="password" th:field="*{confirmPassword}">
+        <div th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}" style="color:red"></div><br><br>
+        
+        <div th:if="${isAdmin}">
+            <label for="">Role : </label>
+            <select th:field="*{role}">
+                <option value="USER">USER</option>
+                <option value="ADMIN">ADMIN</option>
+            </select><br><br>
+        </div>
+
+        <input type="hidden" th:if="${!isAdmin}" name="role" th:value="'USER'"/><br>
+        <!-- Error global (class-level)-->
+        <div th:if="${#fields.hasGlobalErrors()}" style="color:red">
+            <ul>
+                <li th:each="err : ${#fields.globalErrors()}" th:text="${err}"></li>
+            </ul>
+        </div>
+
+        <button type="submit">Register</button>
+    </form>
+</body>
+</html>
