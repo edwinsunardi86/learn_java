@@ -1,0 +1,5 @@
+{
+    "java.compile.nullAnalysis.mode": "automatic",
+    "java.configuration.updateBuildConfiguration": "disabled",
+    "java.jdt.ls.vmargs": "-Xms128m -Xmx4096m -XX:+UseParallelGC"
+}
