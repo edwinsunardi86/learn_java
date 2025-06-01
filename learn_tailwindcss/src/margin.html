@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Margin</title>
+    <link rel="stylesheet" href="./output.css">
+    <style>
+        :root {
+            --my-margin: 1rem
+        }
+    </style>
+</head>
+<body>
+    <!-- m-<number> margin: calc(var(--spacing) * <number>); -->
+    <!-- <div class="bg-blue-300 m-4 border border-gray-700">
+        Box Edwin 1
+    </div> -->
+
+    <!-- -m-<number> margin: calc(var(--spacing) * -<number>); -->
+    <!-- <div class="bg-green-200 -m-4 border border-gray-700">
+            Box Edwin 2
+    </div> -->
+
+    <!-- m-auto margin: auto; -->
+    <div class="w-1/2 m-auto bg-blue-200">
+        Ini div center secara horizontal
+    </div>
+
+    <!-- m-(<custom-property>) margin: var(<custom-property>); -->
+    <div class="m-[var(--my-margin)] bg-slate-300 p-4">
+        Box Edwin 4
+    </div>
+
+    <!-- m-[<value>]  margin: <value>; -->
+    <div class="bg-purple-200 m-[50px]">
+        Box Edwin 5
+    </div>
+
+    <!-- ms,me,mt,mb,ml,mr -->
+     <div class="me-20 bg-gray-300">
+        Box Edwin 6
+     </div>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./output.css">
+    <title>FlexBox</title>
+</head>
+<body>
+<!--  flexbox-direction -->
+<!-- <div class="flex flex-row">
+    <div class="bg-red-100 p-2">Box 1</div>
+    <div class="bg-red-200 p-2">Box 2</div>
+    <div class="bg-red-300 p-2">Box 3</div>
+</div>
+<div class="flex flex-col">
+    <div class="bg-red-100 p-2">Box 1</div>
+    <div class="bg-red-200 p-2">Box 2</div>
+    <div class="bg-red-300 p-2">Box 3</div>
+</div> -->
+
+<!-- flex-wrap, flex-nowrap, flex-wrap-reserve --> <!-- pakai nowrap akan sebaris dan div child akan di shrink-->
+<!-- <div class="flex flex-wrap-reverse gap-4 text-center bg-blue-100"> 
+  <div class="bg-red-400 p-2 w-32">Box 1</div>
+  <div class="bg-red-400 p-2 w-32">Box 2</div>
+  <div class="bg-red-400 p-2 w-32">Box 3</div>
+  <div class="bg-red-400 p-2 w-32">Box 4</div>
+  <div class="bg-red-400 p-2 w-32">Box 5</div>
+  <div class="bg-red-400 p-2 w-32">Box 6</div>
+  <div class="bg-red-400 p-2 w-32">Box 7</div>
+  <div class="bg-red-400 p-2 w-32">Box 8</div>
+  <div class="bg-red-400 p-2 w-32">Box 9</div>
+  <div class="bg-red-400 p-2 w-32">Box 10</div>
+  <div class="bg-red-400 p-2 w-32">Box 11</div>
+  <div class="bg-red-400 p-2 w-32">Box 12</div>
+  <div class="bg-red-400 p-2 w-32">Box 13</div>
+  <div class="bg-red-400 p-2 w-32">Box 14</div>
+  <div class="bg-red-400 p-2 w-32">Box 15</div>
+  <div class="bg-red-400 p-2 w-32">Box 16</div>
+</div> -->
+
+<!-- flex grow, grow-0 -->
+<!-- <div class="flex">
+    <div class="grow-2 bg-red-200">Grow 2</div>
+    <div class="grow-5 bg-green-200">Grow 5</div>
+    <div class="grow-0 bg-blue-200">No Grow</div>
+</div> -->
+
+<!-- flex-shrink → shrink, shrink-0 -->
+<!-- <div class="flex w-150"> -->
+    <!-- <div class="shrink bg-red-200 w-140">Shrinkable</div> --> <!-- tidak akan memanjang walaupun ada class shrink -->
+    <!-- <div class="shrink-0 bg-green-200 w-140">Not Shrink</div> -->
+<!-- </div> -->
+
+<!-- flex-basis (basis-{value}) -->
+<!-- <div class="flex">
+    <div class="basis-1/4 bg-red-200">25%</div>
+    <div class="basis-3/4 bg-green-200">75%</div>
+</div> -->
+
+<!-- order → order-{1-12}, order-first, order-last -->
+<!-- <div class="flex">
+    <div class="order-2 bg-red-200">Second</div>
+    <div class="order-1 bg-blue-200">First</div>
+</div> -->
+
+<!-- justify-content → justify-start, justify-center, justify-end, justify-between, justify-around, justify-evenly -->
+<!-- <div class="flex justify-evenly">
+  <div class="bg-red-200">A</div>
+  <div class="bg-blue-200">B</div>
+</div> -->
+
+<!-- align-items → items-start, center, end, stretch -->
+<!-- <div class="flex items-center h-20">
+  <div class="bg-red-200">Center vertically</div>
+</div> -->
+<!-- tambahan -->
+<div class="bg-red-200 h-150 flex justify-center items-center">
+        <div class="grid bg-purple-200">
+            <div class="bg-blue-200 p4">Box 1</div>
+            <div class="bg-blue-200 p4">Box 1</div>
+            <div class="bg-blue-200 p4">Box 1</div>
+        </div>
+    </div>
+</body>
+</html>

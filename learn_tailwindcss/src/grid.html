@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./output.css">
+</head>
+<body>
+    <!-- grid-template-columns → grid-cols-{n} -->
+    <!-- <div class="grid grid-cols-2 gap-3">
+        <div class="bg-red-100">Item 1</div>
+        <div class="bg-red-200">Item 2</div>
+        <div class="bg-red-300">Item 3</div>
+        <div class="bg-red-400">Item 4</div>
+        <div class="bg-red-500">Item 5</div>
+        <div class="bg-red-600">Item 6</div>
+    </div> -->
+    
+    <!-- grid-column → col-span-{n} atau col-start-{n} / col-end-{n}-->
+    <!-- <div class="grid grid-cols-4 gap-2">
+        <div class="col-span-2 bg-red-200">Span 2</div>
+        <div class="col-span-2 bg-red-200">Span 2</div>
+        <div class="col-span-2 bg-red-200">Span 2</div>
+        <div class="col-span-2 bg-red-200">Span 2</div>
+    </div> -->
+
+    <!-- grid-template-rows → grid-rows-{n} -->
+    <!-- <div class="grid grid-rows-3 gap-2 h-60">
+        <div class="bg-red-200">Row 1</div>
+        <div class="bg-green-200">Row 2</div>
+        <div class="bg-purple-200">Row 3</div>
+    </div>  -->
+
+    <!-- grid-row → row-span-{n}, row-start-{n}, row-end-{n} -->
+    <!-- <div class="grid grid-rows-3 grid-cols-3 gap-2">
+        <div class="col-span-2 bg-red-200">tall</div>
+        <div class="bg-green-200">Short</div>
+    </div> -->
+
+    <!-- grid-auto-flow → grid-flow-row, grid-flow-col, grid-flow-dense -->
+    <!-- <div class="grid grid-flow-col auto-cols-max gap-4">
+        <div class="bg-red-200 w-20">1</div>
+        <div class="bg-green-200 w-20">2</div>
+        <div class="bg-red-200 w-20">3</div>
+        <div class="bg-green-200 w-20">4</div>
+        <div class="bg-red-200 w-20">5</div>
+        <div class="bg-green-200 w-20">6</div>
+        <div class="bg-red-200 w-20">7</div>
+        <div class="bg-green-200 w-20">8</div>
+        <div class="bg-red-200 w-20">9</div>
+        <div class="bg-green-200 w-20">10</div>
+        <div class="bg-red-200 w-20">11</div>
+        <div class="bg-green-200 w-20">12</div> 
+    </div> -->
+
+    <!-- grid-auto-columns → auto-cols-{value} -->
+    <!-- <div class="grid grid-flow-col auto-cols-fr">
+        <div class="bg-red-200">1fr</div>
+        <div class="bg-green-200">1fr</div>
+        <div class="bg-red-200">1fr</div>
+        <div class="bg-green-200">1fr</div>
+        <div class="bg-red-200">1fr</div>
+        <div class="bg-green-200">1fr</div>
+    </div> -->
+    
+    <!-- grid-auto-rows → auto-rows-{value} -->
+    <!-- <div>
+        <div class="grid auto-rows-[150px] bg-red-200">
+            <div class="bg-purple-200">Box 1</div>
+            <div class="bg-green-200">Box 2</div>
+        </div>
+        <div class="grid grid-cols-2 auto-rows-min gap-4">
+            <div class="bg-blue-200">Pendek</div>
+            <div class="bg-blue-300">Sangat sangat sangat panjang kontennya</div>
+            <div class="bg-blue-400">Isi biasa</div>
+            <div class="bg-blue-500">Teks</div>
+        </div>
+    </div> -->
+
+    <!-- gap → gap-{n} / gap-x-{n} / gap-y-{n} -->
+    <!-- <div class="grid grid-cols-2 gap-3">
+        <div class="bg-red-200">A</div>
+        <div class="bg-blue-200">B</div>
+    </div> -->
+
+    <!-- justify-items → justify-items-start, center, end, stretch -->
+    <!-- <div class="grid justify-items-center">
+        <div class="bg-red-200 w-20">Box 1</div>
+        <div class="bg-blue-200 w-20">Box 2</div>
+        <div class="bg-purple-200 w-20">Box 3</div>
+        <div class="bg-yellow-200 w-20">Box 4</div>
+    </div> -->
+
+    <!-- justify-self → justify-self-start, center, end, stretch -->
+    <!-- <div class="grid grid-cols-2">
+        <div class="justify-self-center bg-red-200">Box 1</div>
+    </div> -->
+
+    <!-- align-content → content-start, center, end, between, around, evenly -->
+    <!-- <div class="grid content-center bg-purple-200 h-40">
+        <div class="bg-red-200">Box 1</div>
+        <div class="bg-blue-200">Box 2</div>
+    </div> -->
+    
+    <!-- place-content = align-content + justify-content -->
+    <!-- <div class="grid place-content-center h-40 bg-pink-200">
+        <div class="bg-red-200">Centered</div>
+    </div> -->
+
+    <!-- align-items → items-start, center, end, stretch -->
+    <!-- <div class="flex items-center h-20">
+        <div class="bg-green-200">Center Verticaly</div>
+    </div> -->
+
+    <!-- place-items = align-items + justify-items -->
+    <!-- <div class="grid place-items-center h-40">
+        <div class="bg-green-200">Centered</div>
+    </div> -->
+
+    <!-- place-self = align-self + justify-self --> <!-- place-self-start, center, end -->
+    <!-- <div class="grid grid-cols-2 h-40">
+        <div class="place-self-center bg-red-200">Center</div>
+    </div> -->
+</body>
+</html>
