@@ -1,6 +1,6 @@
 // tailwind.config.js
 module.exports = {
-    content:["./src/**/*.html", './src/**/*.{js,ts,jsx,tsx}'],
+    content:["./src/**/*.html", './src/**/*.{js,ts,jsx,tsx}', './templates/**/*.html'],
     safelist: ["ps-[var(--sidebar-padding)]","pe-[var(--sidebar-padding)]"],
     theme: {
         extend: {
@@ -13,6 +13,9 @@ module.exports = {
             margin: {
                 custom: 'var(--my-margin)'
             },
+            fontFamily: {
+                roboto: ['"Roboto"', 'sans-serif']
+            }
         },
     },
     variants: {
