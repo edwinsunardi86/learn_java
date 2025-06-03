@@ -13,9 +13,6 @@ module.exports = {
             margin: {
                 custom: 'var(--my-margin)'
             },
-            fontFamily: {
-                roboto: ['"Roboto"', 'sans-serif']
-            }
         },
     },
     variants: {

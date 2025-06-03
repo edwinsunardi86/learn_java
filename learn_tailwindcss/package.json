@@ -16,7 +16,10 @@
     "vite": "^6.3.5"
   },
   "dependencies": {
+    "@fontsource-variable/eb-garamond": "^5.2.5",
     "@fontsource-variable/roboto": "^5.2.5",
+    "@fontsource/lato": "^5.2.5",
+    "@fontsource/roboto": "^5.2.5",
     "@tailwindcss/cli": "^4.1.8",
     "@tailwindcss/postcss": "^4.1.8"
   }

@@ -1,2 +1,16 @@
+/* @import "@fontsource-variable/roboto"; */
 @import "@fontsource-variable/roboto";
+@import "@fontsource/lato";
 @import "tailwindcss";
+
+.font-roboto {
+  font-family: "Roboto Variable", sans-serif;
+}
+
+.font-lato {
+    font-family: "Lato", sans-serif;
+}
+
+.font-eb-garamond {
+    font-family: "EB Garamond Variable", serif;
+}
