@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@fontsource-variable/eb-garamond": "^5.2.5",
+    "@fontsource-variable/oswald": "^5.2.6",
     "@fontsource-variable/roboto": "^5.2.5",
     "@fontsource/lato": "^5.2.5",
     "@fontsource/roboto": "^5.2.5",
