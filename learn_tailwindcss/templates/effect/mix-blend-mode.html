@@ -5,10 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body class="bg-gray-800 p-6">
+<body class="bg-gray-800 p-6 space-y-6">
+    <div class="flex justify-center -space-x-14"> <!-- tanpa isolate -->
+        <div class="bg-cyan-500 w-35 h-35 rounded-full mix-blend-multiply"></div>
+        <div class="bg-fuchsia-500 w-35 h-35 rounded-full mix-blend-multiply"></div>
+    </div>
     <div class="isolate flex justify-center -space-x-14">
         <div class="bg-cyan-500 w-35 h-35 rounded-full mix-blend-multiply"></div>
         <div class="bg-fuchsia-500 w-35 h-35 rounded-full mix-blend-multiply"></div>
+    </div>
+    <div class="isolate flex justify-center -space-x-14">
+        <div class="bg-cyan-500 w-35 h-35 rounded-full mix-blend-screen"></div>
+        <div class="bg-fuchsia-500 w-35 h-35 rounded-full mix-blend-screen"></div>
+    </div>
+    <div class="isolate flex justify-center -space-x-14">
+        <div class="bg-cyan-500 w-35 h-35 rounded-full mix-blend-overlay"></div>
+        <div class="bg-fuchsia-500 w-35 h-35 rounded-full mix-blend-overlay"></div>
     </div>
     <script type="module" src="../../font-source.js"></script>
 </body>
