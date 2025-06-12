@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body class="bg-gray-800 flex flex-col items-center p-6 space-y-6">
+    <div class="mask-[url(../../public/images/scribble.png)] mask-contain mask-no-repeat mask-center bg-[url(../../public/images/wp3665974-everest-mountain-wallpaper.jpg)] bg-cover bg-no-repeat bg-center w-[50vh] h-[50vh]"></div>
+
+    <div class="mask-t-from-50% bg-[url(../../public/images/wp3665974-everest-mountain-wallpaper.jpg)] bg-cover bg-center opacity-20 w-[50vh] h-[50vh]"></div> <!-- t,b,l,r -->
+
+    <div class="mask-l-from-50% mask-l-to-90% bg-[url(../../public/images/wp3665974-everest-mountain-wallpaper.jpg)] bg-cover bg-center w-[50vh] h-[50vh]"></div>
+    <div class="mask-x-from-70% mask-x-to-90% mask-y-from-70% mask-y-to-90% bg-[url(../../public/images/wp3665974-everest-mountain-wallpaper.jpg)] bg-cover bg-center w-[50vh] h-[50vh]"></div>
+    <div class="mask-linear-180 mask-linear-from-60% mask-linear-to-80% bg-[url(../../public/images/wp3665974-everest-mountain-wallpaper.jpg)] bg-cover bg-center w-[50vh] h-[50vh]"></div> <!-- mask-linear-180 artinya mask linearnya pada 180deg -->
+
+    <div class="flex flex-row items-center h-fit w-[50vw] overflow-hidden">
+        <img src="../../public/images/keyboard.png" alt="Keyboard Gaming" class="w-1/2 h-90 object-cover object-left mask-radial-[100%_100%] mask-radial-from-25% mask-radial-at-left">
+         <div class="">
+            <p class="text-md font-roboto font-bold text-blue-400">SPEED</p>
+            <p class="text-lg font-roboto font-extrabold text-white">Built for power users</p>
+            <p class="text-md font-roboto font-semibold text-gray-500">Work faster than ever with our keyboard shortcuts</p>
+         </div>
+    </div>
+
+    <div class="mask-radial-at-top-left mask-radial-[25%_40%] mask-radial-from-100% bg-[url(../../public/images/wp4070239-mount-everest-wallpapers.jpg)] bg-cover w-[50vw] h-[50vh]"></div>
+    
+    <div class="flex items-center gap-5 rounded-xl bg-gray-600 p-4 shadow-sm shadow-gray-400">
+        <div class="relative grid grid-cols-1 grid-rows-1 size-10 justify-items-center">
+            <div class="absolute size-10 rounded-full border-4 border-gray-500"></div>
+            <div class="absolute size-10 rounded-full border-4 border-amber-500 mask-conic-from-75% mask-conic-to-75%"></div>
+        </div>
+        <div class="text-sm text-gray-950 dark:text-white">
+            <p class="font-medium">Storage used: 75%</p>
+            <p class="mt-1 text-gray-500 dark:text-gray-400"><span class="font-medium">0.48 GB</span> out of 2 GB remaining</p>
+        </div>
+    </div>
+    <script type="module" src="/font-source.js"></script>
+</body>
+</html>
