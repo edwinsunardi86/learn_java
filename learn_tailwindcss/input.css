@@ -55,3 +55,21 @@
 .table-default td {
   @apply border border-gray-300 p-2;
 }
+
+.table-odd-even {
+  @apply border-separate border-spacing-2 border border-gray-400
+}
+
+.table-odd-even th {
+  @apply border border-gray-300 p-2 bg-gray-600
+}
+
+.table-odd-even tr {
+  @apply odd:bg-gray-200 odd:text-black even:bg-gray-800 even:text-white
+}
+
+.table-odd-even td {
+  @apply px-2 py-px
+}
+
+
